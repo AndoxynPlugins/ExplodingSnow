@@ -1,0 +1,4 @@
+PluginRequest-ExplodingSnow
+===========================
+
+Exploding Snowballs
