@@ -16,9 +16,15 @@
  */
 package net.daboross.bukkitdev.explodingsnow;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -40,10 +46,17 @@ public class ExplodingSnowPlugin extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("")) {
-        } else {
-            sender.sendMessage("ExplodingSnow doesn't know about the command /" + cmd.getName());
-        }
+        sender.sendMessage("ExplodingSnow doesn't know about the command /" + cmd.getName());
         return true;
+    }
+
+    @EventHandler
+    public void snowBallHitEvent(ProjectileHitEvent evt) {
+        if (evt.getEntity().getType() == EntityType.SNOWBALL) {
+            LivingEntity shooter = evt.getEntity().getShooter();
+            if (shooter instanceof Player && ((Player) shooter).hasPermission("explodingsnow.use")) {
+                evt.getEntity().getWorld().createExplosion(evt.getEntity().getLocation(), 6.0F);
+            }
+        }
     }
 }
