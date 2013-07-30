@@ -1,0 +1,5 @@
+name: ${project.name}
+main: net.daboross.bukkitdev.explodingsnow.ExplodingSnowPlugin
+version: ${project.version}
+author: Dabo Ross
+description: Exploding Snowballs
