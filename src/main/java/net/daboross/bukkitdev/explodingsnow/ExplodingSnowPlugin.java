@@ -16,6 +16,7 @@
  */
 package net.daboross.bukkitdev.explodingsnow;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
@@ -54,7 +55,8 @@ public class ExplodingSnowPlugin extends JavaPlugin implements Listener {
         if (evt.getEntity().getType() == EntityType.SNOWBALL) {
             LivingEntity shooter = evt.getEntity().getShooter();
             if (shooter instanceof Player && ((Player) shooter).hasPermission("explodingsnow.use")) {
-                evt.getEntity().getWorld().createExplosion(evt.getEntity().getLocation(), 6.0F);
+                Location l = evt.getEntity().getLocation();
+                evt.getEntity().getWorld().createExplosion(l.getX(), l.getY(), l.getZ(), 6.0F, false, false);
             }
         }
     }
